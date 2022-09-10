@@ -1,0 +1,7 @@
+.output{
+    width: 90vw;
+    color: rgb(105, 103, 103);
+}
+.output-Status{
+    display: flex;
+}

@@ -1,0 +1,21 @@
+.request-container{
+    display: flex;
+    width: 90vw;
+}
+.form-select{
+    width: auto;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+}
+.option{
+
+}
+.btn{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-control{
+    width: 100%;
+    border-radius: 0;
+}

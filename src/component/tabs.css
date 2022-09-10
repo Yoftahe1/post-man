@@ -1,0 +1,14 @@
+.tab-container{
+    width: 90vw;
+}
+.form-container{
+    /* display: flex; */
+}
+.form-control{
+    width: 100%;
+    
+}
+.key-values{
+    display: flex;
+    margin-bottom: 5px;
+}
