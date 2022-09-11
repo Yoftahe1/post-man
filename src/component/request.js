@@ -9,14 +9,17 @@ const Request = (props) => {
   const inputRef=useRef('')
   const methodRef=useRef('')
   function submitHandler(){
+    const startTime=new Date().getTime()
     let params=(Object.values(props.params).map((element)=>element)).reduce((acc, cur) => ({ ...acc, [cur.key]: cur.value }), {})
     let header=(Object.values(props.header).map((element)=>element)).reduce((acc, cur) => ({ ...acc, [cur.key]: cur.value }), {})
+    let data=props.Json
     axios({
       url:inputRef.current.value,
       method:methodRef.current.value,
       params:params,
       header:header,
-    }).catch(e=>e).then(response=>storeCtx.setResponseHandler(response))
+      data,
+    }).then(response=>{storeCtx.setResponseHandler(response);storeCtx.timeHandler(new Date().getTime()-startTime)}).catch(e=>{storeCtx.setResponseHandler(e.response)})
   }
   return (
     <div className='request-container'>

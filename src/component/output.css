@@ -5,3 +5,19 @@
 .output-Status{
     display: flex;
 }
+.output-tab{
+    height: 40px;
+    display: flex;
+    border-bottom: 1px solid rgb(189, 186, 186);;
+}
+.output-header-key{
+    min-width: 110px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+.output-header-value{
+    padding-left: 5px;
+    display: flex;
+    align-items: center; 
+}

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import CodeMirror from "@uiw/react-codemirror";
+import { json } from "@codemirror/lang-json";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Button from "react-bootstrap/Button";
@@ -10,6 +12,7 @@ function TabsContainer() {
   const [key, setKey] = useState("home");
   const [params, setParams] = useState({0:{key:'',value:''}});
   const [header, setHeader] = useState({0:{key:'',value:''}});
+  const [Json, setJson] =useState('{\n\t\n}')
   function addHandler() {
     let size = Object.keys(params).length;
     if (size !== 0) {
@@ -64,9 +67,12 @@ function TabsContainer() {
     delete header[key];
     setHeader({ ...header });
   }
+  const onChange = React.useCallback((value, viewUpdate) => {
+    setJson(value);
+  }, []);
   return (
     <div className="tab-container">
-    <Request params={params} header={header}/> 
+    <Request params={params} header={header} Json={Json}/> 
     <Tabs
       id="controlled-tab-example"
       activeKey={key}
@@ -140,7 +146,15 @@ function TabsContainer() {
         </Button>
       </Tab>
       <Tab eventKey="JSON" title="JSON">
-        JSON
+      <div className="code-mirror">
+        <CodeMirror
+            value={Json}
+            height="400px"
+            extensions={[json({ jsx: true })]}
+            onChange={onChange}
+          />
+      </div>
+      
       </Tab>
     </Tabs></div>
     

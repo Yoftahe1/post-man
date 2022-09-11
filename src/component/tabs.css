@@ -12,3 +12,6 @@
     display: flex;
     margin-bottom: 5px;
 }
+.code-mirror{
+    border: 2px solid rgb(219, 214, 214);
+}
