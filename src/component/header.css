@@ -1,0 +1,16 @@
+.header{
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 2px solid rgb(177, 175, 175);
+    margin-bottom: 8px;
+}
+.header img{
+    height:38px;
+    margin-top: 8px;
+    margin-right: 8px;
+}
+.header h2{
+    margin-top: 8px;
+    color: rgba(0, 0, 0, 0.575);
+}

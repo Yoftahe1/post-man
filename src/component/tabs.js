@@ -10,9 +10,9 @@ import Request from './request'
 import "./tabs.css";
 function TabsContainer() {
   const [key, setKey] = useState("home");
-  const [params, setParams] = useState({0:{key:'',value:''}});
-  const [header, setHeader] = useState({0:{key:'',value:''}});
-  const [Json, setJson] =useState('{\n\t\n}')
+  const [params, setParams] = useState({0:{key:'',value:''},1:{key:'',value:''}});
+  const [header, setHeader] = useState({0:{key:'',value:''},1:{key:'',value:''}});
+  const [Json, setJson] =useState('')
   function addHandler() {
     let size = Object.keys(params).length;
     if (size !== 0) {
@@ -149,7 +149,7 @@ function TabsContainer() {
       <div className="code-mirror">
         <CodeMirror
             value={Json}
-            height="400px"
+            height="300px"
             extensions={[json({ jsx: true })]}
             onChange={onChange}
           />
