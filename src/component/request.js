@@ -9,7 +9,8 @@ const Request = (props) => {
   const storeCtx=useContext(storeContext)
   const inputRef=useRef('')
   const methodRef=useRef('')
-  function submitHandler(){
+  function submitHandler(event){
+    event.preventDefault()
     if(inputRef.current.value.trim().length===0)setIsEmpty(true)
     else{try {
     setIsEmpty(false)
@@ -39,9 +40,11 @@ const Request = (props) => {
         <option className='option'>PATCH</option>
         <option className='option'>DELETE</option>
       </Form.Select>
-      <Form.Control ref={inputRef} type='url' placeholder={!isEmpty?'https://example.com':'URL is required'}className={(isEmpty)&&"validation"} size="lg" required="required"/>
+      <form onSubmit={submitHandler} className='form'>
+        <Form.Control ref={inputRef} type='url' placeholder={!isEmpty?'https://example.com':'URL is required'}className={(isEmpty)&&"validation"} size="lg" required="required"/>
+      <Button variant="primary"  onClick={submitHandler}>Send</Button>
+      </form>
       
-      <Button variant="primary" onClick={submitHandler} >Send</Button>
       <br/>
       
     </div>

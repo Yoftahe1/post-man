@@ -16,11 +16,15 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
-.form-control{
+.form .form-control{
     width: 100%;
     border-radius: 0;
 }
 .validation{
     background-color: rgba(255, 0, 0, 0.13);
     border-color: red;
+}
+.form{
+    display: flex;
+    width:100vw
 }
