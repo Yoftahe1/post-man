@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
+import {SkeletonTheme} from 'react-loading-skeleton'
 import { StoreContextProvider } from "./store/store";
+import App from "./App";
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <StoreContextProvider>
-    <App />
-  </StoreContextProvider>
+  <SkeletonTheme baseColor="#abaaa9" highlightColor="#fff">
+    <StoreContextProvider>
+      <App />
+    </StoreContextProvider>
+  </SkeletonTheme>
 );

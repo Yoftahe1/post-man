@@ -11,29 +11,24 @@ const Request = (props) => {
   const methodRef=useRef('')
   function submitHandler(){
     if(inputRef.current.value.trim().length===0)setIsEmpty(true)
-    else{
+    else{try {
     setIsEmpty(false)
+    let data=JSON.parse(props.Json)
     storeCtx.isLoadingHandler(true)
     const startTime=new Date().getTime()
     let params=(Object.values(props.params).map((element)=>element)).reduce((acc, cur) => ({ ...acc, [cur.key]: cur.value }), {})
     let header=(Object.values(props.header).map((element)=>element)).reduce((acc, cur) => ({ ...acc, [cur.key]: cur.value }), {})
-    let data=props.Json
-    console.log({
-      url:inputRef.current.value,
-      method:methodRef.current.value,
-      params:params,
-      header:header,
-      data:data,
-    })
+    
     axios({
       url:inputRef.current.value,
       method:methodRef.current.value,
       params:params,
       header:header,
       data:data,
-    }).then(response=>{console.log(response);storeCtx.setResponseHandler(response);storeCtx.isLoadingHandler(false);storeCtx.timeHandler(new Date().getTime()-startTime)})
+    }).then(response=>{storeCtx.setResponseHandler(response);storeCtx.isLoadingHandler(false);storeCtx.timeHandler(new Date().getTime()-startTime)})
       .catch(e=>{storeCtx.isLoadingHandler(false);storeCtx.timeHandler(new Date().getTime()-startTime);storeCtx.setResponseHandler(e.response)})
   }
+  catch(err){alert("input is not JSON format")}}
   }
   return (
     <div className='request-container'>
@@ -44,7 +39,7 @@ const Request = (props) => {
         <option className='option'>PATCH</option>
         <option className='option'>DELETE</option>
       </Form.Select>
-      <Form.Control ref={inputRef} type='url' placeholder={!isEmpty?'https://example.com':'URL is required'}className={isEmpty&&"validation"} size="lg" required="required"/>
+      <Form.Control ref={inputRef} type='url' placeholder={!isEmpty?'https://example.com':'URL is required'}className={(isEmpty)&&"validation"} size="lg" required="required"/>
       
       <Button variant="primary" onClick={submitHandler} >Send</Button>
       <br/>

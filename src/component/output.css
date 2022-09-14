@@ -2,7 +2,7 @@ h3{
     color: rgb(105, 103, 103); 
 }
 .send{
-    height:60vh;
+    width:40vw;
 }
 .output{
     width: 90vw;
@@ -32,4 +32,7 @@ h3{
 }
 .success{
     color: rgb(6, 190, 6);
+}
+.loading{
+    width:90vw;
 }
