@@ -5,7 +5,7 @@ h3{
     width:40vw;
 }
 .output{
-    width: 90vw;
+    width: 100%;
     color: rgb(105, 103, 103);
 }
 .output-Status{
@@ -34,5 +34,5 @@ h3{
     color: rgb(6, 190, 6);
 }
 .loading{
-    width:90vw;
+    width:100%;
 }

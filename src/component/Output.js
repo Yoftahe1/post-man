@@ -6,7 +6,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import storeContext from "../store/store";
-import "./output.css";
+import "./output.css"; 
 const Output = () => {
   const storeCtx = useContext(storeContext);
   const [key, setKey] = useState("home");
@@ -62,6 +62,7 @@ const Output = () => {
               height="300px"
               extensions={[json()]}
               readOnly={true}
+              
             />
           </div>
         </Tab>

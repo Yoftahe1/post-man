@@ -1,0 +1,18 @@
+.sidebar{
+    width:15vw;
+    margin-right: 2vw;
+}
+.sidebar-req{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    border-bottom: 1px solid grey;
+}
+.sidebar-form{
+    width: 100%;
+    display: flex;
+}
+.sidebar-input{
+    width: 100%;
+    border-radius: 0;
+}

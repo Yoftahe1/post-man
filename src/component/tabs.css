@@ -1,12 +1,11 @@
 .tab-container{
-    width: 90vw;
+    width: 75vw;
 }
 .form-container{
     /* display: flex; */
 }
 .form-control{
     width: 100%;
-
 }
 .key-values{
     display: flex;

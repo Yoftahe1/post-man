@@ -1,19 +1,13 @@
 import Header from "./component/header"
-import Tabs from "./component/tabs"
-import Output from "./component/Output";
 import './App.css';
+import Layout from "./component/Layout";
 function App() {
   return (
     <div className="App">
       <Header/>
-      <Tabs/>
-      <Output/>
+      <Layout/>
     </div>
   );
 }
 
 export default App;
-
-// ```
-// loading state
-// ```
