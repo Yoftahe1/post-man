@@ -1,18 +1,59 @@
 .sidebar{
     width:15vw;
-    margin-right: 2vw;
+    margin-right: 2vw; 
+    color: grey; 
+}
+.sidebar-header{
+    height: 48px;
+    margin-bottom: 8px;
+}
+.sidebar-header h4{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.sidebar-requests{
+    height: 88.5%;
+    overflow-y: auto;
+  
 }
 .sidebar-req{
     display: flex;
-    justify-content: space-between;
     margin-bottom: 5px;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid #495057;
+    color: #495057;  
+}
+.sidebar-req-name{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 .sidebar-form{
     width: 100%;
     display: flex;
+    margin-bottom: 5px;
 }
 .sidebar-input{
     width: 100%;
     border-radius: 0;
 }
+.selected{
+    border-bottom: 1px solid #0d6efd;
+    color: #0d6efd;
+}
+
+
+
+@media (max-width:1250px) {
+    .sidebar{
+      width: 100%;
+    }
+    .sidebar-requests{
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 5px;
+    }
+  }

@@ -1,5 +1,72 @@
 .layout{
     display: flex;
     width: 90vw;
-    height: 100%;
+    height: 90vh;
+    
 }
+.img{
+    width:100px;
+    transform: rotate(-20deg);
+  }
+  .scene{
+    position:relative;
+    width:250vw;
+    height:250vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    
+    transform: rotate(30deg);
+  }
+  .scene i{
+    position:absolute;
+    top:-250px;
+    background: rgba(4, 155, 241, 0.904);
+    animation:animateStars linear infinite;
+  }
+  @keyframes animateStars{
+    0%{
+      transform:translateY(0px);
+    }
+    100%{
+     transform:translateY(200vh) ;
+    }
+  }
+  .scene .rocket{
+    position:relative;
+    animation:animate 0.2s ease infinite;
+  }
+  @keyframes animate{
+    0%,100%{
+      transform:translateY(-2px)
+    }
+    50%{
+      transform:translateY(2px)
+    }
+  }
+  
+  .container{
+    width: 100%;
+    height: 60%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .no-req{
+    color: gray;
+  }
+
+
+  @media (max-width:1250px) {
+    .layout{
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .container{
+      height: 15%;
+    }
+  }

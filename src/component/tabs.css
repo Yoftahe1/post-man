@@ -2,7 +2,8 @@
     width: 75vw;
 }
 .form-container{
-    /* display: flex; */
+   max-height: 266px;
+    overflow-y: auto;
 }
 .form-control{
     width: 100%;
@@ -14,3 +15,13 @@
 .code-mirror{
     border: 2px solid rgb(219, 214, 214);
 }
+
+
+@media (max-width:1250px) {
+    .tab-container{
+      width: 100%;
+    }
+    .form-container{
+        height: 170px;
+    }
+  }

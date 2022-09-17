@@ -25,7 +25,7 @@ const Output = () => {
       <Skeleton height={40}/>
       <Skeleton height={300} />
     </div>
-  ) : storeCtx.response === null ? (
+  ) : storeCtx.requests[storeCtx.selectedRequest].output === null ? (
     <div>
       <img src={require("../img/send.jpg")} alt="send" className="send" />
     </div>
@@ -34,15 +34,12 @@ const Output = () => {
       <h3>Response</h3>
       <div className="output-Status">
         <div>
-          Status:{" "}
-          <span
-            className={storeCtx.response.status >= 400 ? "error" : "success"}
-          >
-            {storeCtx.response !== null && storeCtx.response.status}
+          Status: <span className={storeCtx.requests[storeCtx.selectedRequest].output.status >= 400 ? "error" : "success"}>
+            {storeCtx.requests[storeCtx.selectedRequest].output.status}
           </span>
         </div>
         <div style={{ marginLeft: "10px" }}>
-          Time: <span>{storeCtx.time}</span>ms
+          Time: <span>{storeCtx.requests[storeCtx.selectedRequest].time}</span>ms
         </div>
       </div>
       <Tabs
@@ -52,14 +49,14 @@ const Output = () => {
         className="mb-3"
       >
         <Tab eventKey="home" title="Body">
-          <div style={{ border: "1px solid rgb(189, 186, 186)" }}>
+          <div className="mirror" >
             <CodeMirror
               value={
-                storeCtx.response.status <= 400
-                  ? JSON.stringify(storeCtx.response.data, null, 2)
+                storeCtx.requests[storeCtx.selectedRequest].output.status <= 400
+                  ? JSON.stringify(storeCtx.requests[storeCtx.selectedRequest].output.data, null, 2)
                   : "URL not found"
               }
-              height="300px"
+              //height="300px"
               extensions={[json()]}
               readOnly={true}
               
@@ -67,12 +64,15 @@ const Output = () => {
           </div>
         </Tab>
         <Tab eventKey="profile" title="Header">
-          {Object.entries(storeCtx.response.headers).map((element, index) => (
+        <div className="output-header-container">
+          {Object.entries(storeCtx.requests[storeCtx.selectedRequest].output.headers).map((element, index) => (
             <div className="output-tab" key={index}>
               <div className="output-header-key">{element[0]}</div>
               <div className="output-header-value">{element[1]}</div>
             </div>
           ))}
+        </div>
+          
         </Tab>
       </Tabs>
     </div>

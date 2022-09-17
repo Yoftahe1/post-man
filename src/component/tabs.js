@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { json } from "@codemirror/lang-json";
 import Tab from "react-bootstrap/Tab";
@@ -8,77 +8,72 @@ import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Request from "./request";
 import "./tabs.css";
+import storeContext from "../store/store";
 function TabsContainer() {
+  const storeCtx = useContext(storeContext);
   const [key, setKey] = useState("home");
-  const [params, setParams] = useState({
-    0: { key: "", value: "" },
-    1: { key: "", value: "" },
-  });
-  const [header, setHeader] = useState({
-    0: { key: "", value: "" },
-    1: { key: "", value: "" },
-  });
-  const [Json, setJson] = useState("{\n\t\n}");
   function addHandler() {
-    let size = Object.keys(params).length;
+    let size = Object.keys(storeCtx.requests[storeCtx.selectedRequest].param).length;
     if (size !== 0) {
-      const keys = Object.keys(params);
+      const keys = Object.keys(storeCtx.requests[storeCtx.selectedRequest].param);
       const lastKey = keys[keys.length - 1];
       size = lastKey + 1;
     }
-    setParams({
-      ...params,
+    Object.assign(storeCtx.requests[storeCtx.selectedRequest].param, {
       [size]: { key: "", value: "" },
     });
+    storeCtx.setRequestsHandler({ ...storeCtx.requests });
   }
-
   function changeKey(e, key) {
-    params[key].key = e.target.value;
-    setParams({ ...params });
+    storeCtx.requests[storeCtx.selectedRequest].param[key].key = e.target.value;
+    storeCtx.setRequestsHandler({ ...storeCtx.requests });
   }
-
   function changeValue(e, key) {
-    params[key].value = e.target.value;
-    setParams({ ...params });
+    storeCtx.requests[storeCtx.selectedRequest].param[key].value = e.target.value;
+    storeCtx.setRequestsHandler({ ...storeCtx.requests });
   }
-
   function removeHandler(key) {
-    delete params[key];
-    setParams({ ...params });
+    delete storeCtx.requests[storeCtx.selectedRequest].param[key];
+    storeCtx.setRequestsHandler({ ...storeCtx.requests });
   }
   function addHeaderHandler() {
-    let size = Object.keys(header).length;
+    let size = Object.keys(storeCtx.requests[storeCtx.selectedRequest].header).length;
     if (size !== 0) {
-      const keys = Object.keys(header);
+      const keys = Object.keys(storeCtx.requests[storeCtx.selectedRequest].header);
       const lastKey = keys[keys.length - 1];
       size = lastKey + 1;
     }
-    setHeader({
-      ...header,
+    Object.assign(storeCtx.requests[storeCtx.selectedRequest].header, {
       [size]: { key: "", value: "" },
     });
+    storeCtx.setRequestsHandler({ ...storeCtx.requests });
   }
-
   function changeHeaderKey(e, key) {
-    header[key].key = e.target.value;
-    setHeader({ ...header });
+    storeCtx.requests[storeCtx.selectedRequest].header[key].key = e.target.value;
+    storeCtx.setRequestsHandler({ ...storeCtx.requests });
   }
-
   function changeHeaderValue(e, key) {
-    header[key].value = e.target.value;
-    setHeader({ ...header });
+    storeCtx.requests[storeCtx.selectedRequest].header[key].value = e.target.value;
+    storeCtx.setRequestsHandler({ ...storeCtx.requests });
   }
-
   function removeHeaderHandler(key) {
-    delete header[key];
-    setHeader({ ...header });
+    delete storeCtx.requests[storeCtx.selectedRequest].header[key];
+    storeCtx.setRequestsHandler({ ...storeCtx.requests });
   }
-  const onChange = React.useCallback((value, viewUpdate) => {
-    setJson(value);
-  }, []);
+  const jsonHandler = React.useCallback(
+    (value, viewUpdate) => {
+      storeCtx.requests[storeCtx.selectedRequest].json = value;
+      storeCtx.setRequestsHandler({ ...storeCtx.requests });
+    },
+    [storeCtx]
+  );
   return (
     <div className="tab-container">
-      <Request params={params} header={header} Json={Json} />
+      <Request
+        params={storeCtx.requests[storeCtx.selectedRequest].param}
+        header={storeCtx.requests[storeCtx.selectedRequest].header}
+        Json={storeCtx.requests[storeCtx.selectedRequest].json}
+      />
       <Tabs
         id="controlled-tab-example"
         activeKey={key}
@@ -87,12 +82,12 @@ function TabsContainer() {
       >
         <Tab eventKey="home" title="Params">
           <div className="form-container">
-            {Object.keys(params).map((key, idx) => {
+            {Object.keys(storeCtx.requests[storeCtx.selectedRequest].param).map((key, idx) => {
               return (
                 <div className="key-values" key={idx}>
                   <Form.Control
                     onChange={(e) => changeKey(e, key)}
-                    value={params[key].key}
+                    value={storeCtx.requests[storeCtx.selectedRequest].param[key].key}
                     type="text"
                     placeholder="Key"
                   />
@@ -100,7 +95,7 @@ function TabsContainer() {
                     type="text"
                     placeholder="Value"
                     onChange={(e) => changeValue(e, key)}
-                    value={params[key].value}
+                    value={storeCtx.requests[storeCtx.selectedRequest].param[key].value}
                   />
                   <Button
                     variant="outline-danger"
@@ -113,18 +108,18 @@ function TabsContainer() {
               );
             })}
           </div>
-          <Button variant="outline-success" onClick={addHandler}>
-            Add
+          <Button variant="outline-success" onClick={addHandler} >
+             Add  
           </Button>
         </Tab>
         <Tab eventKey="profile" title="Header">
           <div className="form-container">
-            {Object.keys(header).map((key, idx) => {
+            {Object.keys(storeCtx.requests[storeCtx.selectedRequest].header).map((key, idx) => {
               return (
                 <div className="key-values" key={idx}>
                   <Form.Control
                     onChange={(e) => changeHeaderKey(e, key)}
-                    value={header[key].key}
+                    value={storeCtx.requests[storeCtx.selectedRequest].header[key].key}
                     type="text"
                     placeholder="Key"
                   />
@@ -132,7 +127,7 @@ function TabsContainer() {
                     type="text"
                     placeholder="Value"
                     onChange={(e) => changeHeaderValue(e, key)}
-                    value={header[key].value}
+                    value={storeCtx.requests[storeCtx.selectedRequest].header[key].value}
                   />
                   <Button
                     variant="outline-danger"
@@ -152,11 +147,11 @@ function TabsContainer() {
         <Tab eventKey="JSON" title="JSON">
           <div className="code-mirror">
             <CodeMirror
-              value={Json}
+              value={storeCtx.requests[storeCtx.selectedRequest].json}
               height="300px"
-              option={{readOnly:true}}
+              option={{ readOnly: true }}
               extensions={[json()]}
-              onChange={onChange}
+              onChange={jsonHandler}
             />
           </div>
         </Tab>
